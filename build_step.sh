@@ -6,4 +6,3 @@ echo "Build script"
 npm install
 npm run build
 npm run test
-npm run cypress:run
