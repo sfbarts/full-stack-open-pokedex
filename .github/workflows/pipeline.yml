@@ -40,5 +40,16 @@ jobs:
         with:
           service-id: ${{ secrets.POKEDEX_SERVICE_ID }}
           api-key: ${{ secrets.RENDER_API_KEY }}
+  tag_release:
+    needs: [deploy]
+    runs-on: ubuntu-20.04
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.64.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DEFAULT_BUMP: patch
 
         
