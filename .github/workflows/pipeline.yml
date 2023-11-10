@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
 
 jobs:
   test-deployment:
@@ -30,6 +33,7 @@ jobs:
   deploy:
     needs: test-deployment
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
     steps:
       - name: deploy to production
         uses: johnbeynon/render-deploy-action@v0.0.8
